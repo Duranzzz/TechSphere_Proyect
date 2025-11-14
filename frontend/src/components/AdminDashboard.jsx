@@ -153,13 +153,19 @@ function AdminDashboard({ user, onLogout }) {
                 productos.map((product) => (
                   <tr key={product.id}>
                     <td>
-                      <img
-                        src={getProductImage(product)}
-                        alt={product.nombre}
-                        onError={(e) => {
-                          e.target.src = '/placeholder-image.jpg';
-                        }}
-                      />
+                      <div style={{ width: '80px', height: '80px', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#f0f0f0' }}>
+                        <img
+                          src={getProductImage(product)}
+                          alt={product.nombre}
+                          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                          loading="lazy"
+                          onError={(e) => {
+                            e.target.style.display = 'none';
+                            e.target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="80" height="80"%3E%3Crect fill="%23f0f0f0" width="80" height="80"/%3E%3C/svg%3E';
+                            e.target.style.display = 'block';
+                          }}
+                        />
+                      </div>
                     </td>
                     <td>{product.nombre}</td>
                     <td>Bs {parseFloat(product.precio).toFixed(2)}</td>
