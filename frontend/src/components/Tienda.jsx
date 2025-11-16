@@ -157,7 +157,7 @@ function Tienda() {
 
       <div className="welcome-section">
         <h1>Bienvenido a TechSphere</h1>
-        <p>La mejor tecnología al mejor precio</p>
+        <p>Comprá seguro, comprá inteligente</p>
       </div>
 
       <div className="container">
