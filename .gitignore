@@ -16,4 +16,4 @@ frontend/dist/
 *.log
 
 # Clave de Mysql
-backend/config_local.py
+backend/technosphere_backend/config_local.py
