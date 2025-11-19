@@ -13,6 +13,7 @@ function Tienda() {
   const [searchTerm, setSearchTerm] = useState('');
   const [cartItems, setCartItems] = useState([]);
   const [cartOpen, setCartOpen] = useState(false);
+  const [lightboxImage, setLightboxImage] = useState(null);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
@@ -210,6 +211,8 @@ function Tienda() {
                       alt={product.nombre}
                       className="product-image"
                       loading="lazy"
+                      onClick={() => setLightboxImage(getProductImage(product))}
+                      style={{ cursor: 'pointer' }}
                       onError={(e) => {
                         e.target.style.display = 'none';
                         e.target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="280" height="200"%3E%3Crect fill="%23f0f0f0" width="280" height="200"/%3E%3Ctext fill="%23999" x="50%25" y="50%25" text-anchor="middle" dy=".3em"%3ESin imagen%3C/text%3E%3C/svg%3E';
@@ -252,6 +255,28 @@ function Tienda() {
         onUpdateQuantity={updateQuantity}
         onRemoveItem={removeFromCart}
       />
+
+      {/* Lightbox para imágenes */}
+      {lightboxImage && (
+        <div className="lightbox-overlay" onClick={() => setLightboxImage(null)}>
+          <div className="lightbox-content" onClick={(e) => e.stopPropagation()}>
+            <button
+              className="lightbox-close"
+              onClick={() => setLightboxImage(null)}
+            >
+              ×
+            </button>
+            <img
+              src={lightboxImage}
+              alt="Vista ampliada"
+              className="lightbox-image"
+              onError={(e) => {
+                e.target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="800" height="600"%3E%3Crect fill="%23f0f0f0" width="800" height="600"/%3E%3Ctext fill="%23999" x="50%25" y="50%25" text-anchor="middle" dy=".3em"%3ESin imagen%3C/text%3E%3C/svg%3E';
+              }}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 }
